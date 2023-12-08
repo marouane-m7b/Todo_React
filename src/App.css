@@ -1,38 +1,40 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: rgb(200, 249, 255) !important;
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .todo-list {
+    background-color: rgb(237, 254, 255) !important;
   }
-  to {
-    transform: rotate(360deg);
+
+  .icon-button {
+    transition: all 0.3s !important;
+    -webkit-transition: all 0.3s !important;
+    -moz-transition: all 0.3s !important;
+    -ms-transition: all 0.3s !important;
+    -o-transition: all 0.3s !important;
   }
-}
+
+  .icon-button:hover {
+    scale: 1.1;
+  }
+
+  .todo-card {
+    background-color: rgb(255, 255, 255) !important;
+    transition: all 0.3s !important;
+    -webkit-transition: all 0.3s !important;
+    -moz-transition: all 0.3s !important;
+    -ms-transition: all 0.3s !important;
+    -o-transition: all 0.3s !important;
+  }
+
+  .todo-card:hover {
+    padding: 5px 0px;
+    cursor: pointer;
+  }
+
+  @font-face {
+    font-family: myFont;
+    src: url(../public/fonts/BarlowCondensed-Medium.ttf);
+  }

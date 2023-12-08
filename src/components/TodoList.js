@@ -1,11 +1,13 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
-import { Button, Card, CardActions, CardContent, Divider, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import { Card, CardContent, Divider, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+
+import Todo from './Todo';
 
 export default function TodoList() {
     return (
-        <Container maxWidth="sm">
-            <Card sx={{ minWidth: 275 }}>
+        <Container className='container' maxWidth="sm">
+            <Card className='todo-list' sx={{ minWidth: 275 }}>
                 <CardContent>
                     <Typography variant='h3'>
                         ToDo List
@@ -16,7 +18,10 @@ export default function TodoList() {
                         exclusive
                         // onChange={handleAlignment}
                         aria-label="text alignment"
-                        style={{ marginTop: "20px" }} >
+                        style={{
+                            marginTop: "20px",
+                            marginBottom: "20px"
+                        }} >
                         <ToggleButton value="left">
                             To Do
                         </ToggleButton>
@@ -27,11 +32,10 @@ export default function TodoList() {
                             Done
                         </ToggleButton>
                     </ToggleButtonGroup>
+                    <Todo />
                 </CardContent>
-                <CardActions>
-                    <Button size="small">Learn More</Button>
-                </CardActions>
             </Card>
+
         </Container>
     );
 }
