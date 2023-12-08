@@ -31,10 +31,10 @@
 
   .todo-card:hover {
     padding: 5px 0px;
-    cursor: pointer;
+    cursor: pointer; 
   }
 
   @font-face {
     font-family: myFont;
-    src: url(../public/fonts/BarlowCondensed-Medium.ttf);
+    src: url(../public/fonts/Ubuntu-Regular.ttf);
   }
