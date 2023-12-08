@@ -10,14 +10,16 @@ const theme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>   <div className="App" style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      height: "100vh"
-    }}>
-      <TodoList />
-    </div></ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <div className="App" style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh"
+      }}>
+        <TodoList />
+      </div>
+    </ThemeProvider>
   );
 }
 
