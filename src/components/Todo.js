@@ -10,8 +10,7 @@ export default function Todo({ id, title, description, isCompleted, deleteFuncti
 
     const [showDeleteDialog, setShowDeleteDialog] = useState(false)
     const [showEditDialog, setShowEditDialog] = useState(false)
-    const [newTitle, setNewTitle] = useState(title)
-    const [newDescription, setNewDescription] = useState(description)
+    const [updatedTodo, setUpdatedTodo] = useState({ title: title, description: description })
 
     function handleDeleteClose() {
         setShowDeleteDialog(false)
@@ -67,8 +66,8 @@ export default function Todo({ id, title, description, isCompleted, deleteFuncti
                         type="text"
                         fullWidth
                         variant="standard"
-                        value={newTitle}
-                        onChange={(e)=>{setNewTitle(e.target.value)}}
+                        value={updatedTodo.title}
+                        onChange={(e) => { setUpdatedTodo({ ...updatedTodo, title: e.target.value }) }}
                     />
                     <TextField
                         margin="dense"
@@ -77,13 +76,13 @@ export default function Todo({ id, title, description, isCompleted, deleteFuncti
                         type="text"
                         fullWidth
                         variant="standard"
-                        value={newDescription}
-                        onChange={(e)=>{setNewDescription(e.target.value)}}
+                        value={updatedTodo.description}
+                        onChange={(e) => { setUpdatedTodo({ ...updatedTodo, description: e.target.value }) }}
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={handleEditClose}>Disagree</Button>
-                    <Button disabled={!newTitle} onClick={() => { editFunction(id, newTitle, newDescription); handleEditClose() }} >
+                    <Button disabled={!updatedTodo.title} onClick={() => { editFunction(id, updatedTodo); handleEditClose() }} >
                         Agree
                     </Button>
                 </DialogActions>

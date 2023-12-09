@@ -12,30 +12,15 @@ export default function TodoList() {
 
     const [todoInput, setTodoInput] = React.useState('')
 
-    const [todos, setTodos] = React.useState([{
-        id: v4(),
-        title: 'Buy groceries',
-        description: '',
-        isCompleted: false,
-    },
-    {
-        id: v4(),
-        title: 'Clean the house',
-        description: '',
-        isCompleted: true,
-    },
-    {
-        id: v4(),
-        title: 'Go for a walk',
-        description: '',
-        isCompleted: true,
-    },
-    {
-        id: v4(),
-        title: 'Do the laundry',
-        description: '',
-        isCompleted: false,
-    }])
+    const [todos, setTodos] = React.useState(() => {
+        const storedData = localStorage.getItem('todos');
+        return storedData ? JSON.parse(storedData) : [];
+    });
+
+    React.useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }, [todos]);
+
 
     function handleTodoAdd() {
         const newTodo = {
@@ -44,7 +29,8 @@ export default function TodoList() {
             description: '',
             isCompleted: false,
         }
-        setTodos([...todos, newTodo])
+        const newTodos = [...todos, newTodo]
+        setTodos(newTodos)
         setTodoInput('')
     }
 
@@ -65,16 +51,19 @@ export default function TodoList() {
         setTodos(newTodos)
     }
 
-    function handleEdit(id, title, description) {
-        let newTodos = todos.map((t) => {
+
+    function handleEdit(id, newTodo) {
+        const newTodos = todos.map((t) => {
             if (t.id === id) {
-                t.title = title
-                t.description = description
+                return { ...t, title: newTodo.title, description: newTodo.description }
             }
-            return t
+            else {
+                return t
+            }
         })
         setTodos(newTodos)
     }
+
 
     const todosJsx = todos.map((t) => {
         return (
