@@ -1,9 +1,9 @@
-import * as React from 'react';
 import Container from '@mui/material/Container';
 import { Button, Card, CardContent, Divider, Grid, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 
 import Todo from './Todo';
 import { v4 } from 'uuid';
+import { useEffect, useState, useMemo } from 'react';
 
 
 
@@ -11,17 +11,17 @@ import { v4 } from 'uuid';
 export default function TodoList() {
 
 
-    const [todos, setTodos] = React.useState(() => {
+    const [todos, setTodos] = useState(() => {
         const storedData = localStorage.getItem('todos');
         return storedData ? JSON.parse(storedData) : [];
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
     }, [todos]);
 
-    const [todoInput, setTodoInput] = React.useState('')
-    const [displayedTodosType, setDisplayedTodosType] = React.useState('all')
+    const [todoInput, setTodoInput] = useState('')
+    const [displayedTodosType, setDisplayedTodosType] = useState('all')
 
 
 
@@ -71,13 +71,17 @@ export default function TodoList() {
         setTodos(newTodos)
     }
 
-    const completedTodos = todos.filter((t) => {
-        return t.isCompleted
-    })
+    const completedTodos = useMemo(() => {
+        return todos.filter((t) => {
+            return t.isCompleted
+        })
+    }, [todos])
 
-    const NonCompletedTodos = todos.filter((t) => {
-        return !t.isCompleted
-    })
+    const NonCompletedTodos = useMemo(() => {
+        return todos.filter((t) => {
+            return !t.isCompleted
+        })
+    }, [todos])
 
     let todosToShow = todos
     if (displayedTodosType === 'todo') {
@@ -123,8 +127,8 @@ export default function TodoList() {
                         {/* ========== END FILTER ==========*/}
                     </ToggleButtonGroup>
                     {/* ========== START ALL TODOS ==========*/}
-                    <div className='todos-show' style={{ maxHeight:"60vh", overflow:'auto', margin:'0 0 30px 0' }}>
-                    {todosJsx}
+                    <div className='todos-show' style={{ maxHeight: "60vh", overflow: 'auto', margin: '0 0 30px 0' }}>
+                        {todosJsx}
                     </div>
                     {/* ========== END ALL TODOS ==========*/}
                     {/* ========== START INPUT ==========*/}
