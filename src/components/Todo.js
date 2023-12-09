@@ -93,7 +93,7 @@ export default function Todo({ id, title, description, isCompleted, deleteFuncti
                 <CardContent>
                     <Grid container spacing={0} display="flex" justifyContent="space-evenly" alignItems="center">
                         <Grid xs={7}>
-                            <Typography variant='h5' sx={{ textAlign: "left" }}>
+                            <Typography variant='h5' sx={{ textAlign: "left", textDecoration: isCompleted?'line-through':'none' }}>
                                 {title}
                             </Typography>
                             <Typography variant='body2' sx={{ textAlign: "left" }}>
