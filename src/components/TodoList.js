@@ -3,13 +3,15 @@ import { Button, Card, CardContent, Divider, Grid, TextField, ToggleButton, Togg
 
 import Todo from './Todo';
 import { v4 } from 'uuid';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useContext } from 'react';
+import { SnackBarContext } from '../contexts/SnackBarContext';
 
 
 
 
 export default function TodoList() {
 
+    const { showHideSnackBar } = useContext(SnackBarContext)
 
     const [todos, setTodos] = useState(() => {
         const storedData = localStorage.getItem('todos');
@@ -38,6 +40,7 @@ export default function TodoList() {
         }
         const newTodos = [...todos, newTodo]
         setTodos(newTodos)
+        showHideSnackBar("Task Addition Completed")
         setTodoInput('')
     }
 
@@ -46,16 +49,23 @@ export default function TodoList() {
             return t.id !== id
         })
         setTodos(newTodos)
+        showHideSnackBar("Task Deletion Confirmed")
     }
 
     function handleComplete(id) {
         const newTodos = todos.map((t) => {
             if (t.id === id) {
+                if (t.isCompleted === true) {
+                    showHideSnackBar("Task Marked As Non Completed.")
+                } else {
+                    showHideSnackBar("Task Marked As Completed.")
+                }
                 t.isCompleted = !t.isCompleted
             }
             return t
         })
         setTodos(newTodos)
+
     }
 
 
@@ -69,6 +79,7 @@ export default function TodoList() {
             }
         })
         setTodos(newTodos)
+        showHideSnackBar("Task Successfully Edited")
     }
 
     const completedTodos = useMemo(() => {
