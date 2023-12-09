@@ -95,7 +95,7 @@ export default function TodoList() {
 
     return (
         <Container className='container' maxWidth="sm">
-            <Card className='todo-list' sx={{ minWidth: 275 }}>
+            <Card className='todo-list' sx={{ minWidth: 250 }}>
                 <CardContent>
                     <Typography variant='h3'>
                         ToDo List
@@ -123,7 +123,9 @@ export default function TodoList() {
                         {/* ========== END FILTER ==========*/}
                     </ToggleButtonGroup>
                     {/* ========== START ALL TODOS ==========*/}
+                    <div className='todos-show' style={{ maxHeight:"60vh", overflow:'auto', margin:'0 0 30px 0' }}>
                     {todosJsx}
+                    </div>
                     {/* ========== END ALL TODOS ==========*/}
                     {/* ========== START INPUT ==========*/}
                     <Grid container>
