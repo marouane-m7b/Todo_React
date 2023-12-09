@@ -12,30 +12,28 @@ export default function TodoList() {
 
     const [todoInput, setTodoInput] = React.useState('')
 
-    const [isDisabled, setIsDisabled] = React.useState(true)
-
     const [todos, setTodos] = React.useState([{
         id: v4(),
         title: 'Buy groceries',
-        description: 'Buy bread, cheese, and milk',
+        description: '',
         isCompleted: false,
     },
     {
         id: v4(),
         title: 'Clean the house',
-        description: 'Clean the living room, kitchen, and bathroom',
+        description: '',
         isCompleted: true,
     },
     {
         id: v4(),
         title: 'Go for a walk',
-        description: 'Go for a walk around the block',
+        description: '',
         isCompleted: true,
     },
     {
         id: v4(),
         title: 'Do the laundry',
-        description: 'Do the laundry',
+        description: '',
         isCompleted: false,
     }])
 
@@ -43,7 +41,7 @@ export default function TodoList() {
         const newTodo = {
             id: v4(),
             title: todoInput,
-            description: 'Test',
+            description: '',
             isCompleted: false,
         }
         setTodos([...todos, newTodo])
@@ -67,9 +65,20 @@ export default function TodoList() {
         setTodos(newTodos)
     }
 
+    function handleEdit(id, title, description) {
+        let newTodos = todos.map((t) => {
+            if (t.id === id) {
+                t.title = title
+                t.description = description
+            }
+            return t
+        })
+        setTodos(newTodos)
+    }
+
     const todosJsx = todos.map((t) => {
         return (
-            <Todo key={t.id} id={t.id} title={t.title} description={t.description} isCompleted={t.isCompleted} deleteFunction={handleDelete} completeFunction={handleComplete} />
+            <Todo key={t.id} id={t.id} title={t.title} description={t.description} isCompleted={t.isCompleted} deleteFunction={handleDelete} completeFunction={handleComplete} editFunction={handleEdit} />
         )
     })
 
@@ -93,10 +102,10 @@ export default function TodoList() {
                             To Do
                         </ToggleButton>
                         <ToggleButton value="center">
-                            In Progress
+                            Done
                         </ToggleButton>
                         <ToggleButton value="right">
-                            Done
+                            All
                         </ToggleButton>
                         {/* ========== END FILTER ==========*/}
                     </ToggleButtonGroup>
