@@ -10,7 +10,6 @@ import { v4 } from 'uuid';
 
 export default function TodoList() {
 
-    const [todoInput, setTodoInput] = React.useState('')
 
     const [todos, setTodos] = React.useState(() => {
         const storedData = localStorage.getItem('todos');
@@ -21,6 +20,14 @@ export default function TodoList() {
         localStorage.setItem('todos', JSON.stringify(todos));
     }, [todos]);
 
+    const [todoInput, setTodoInput] = React.useState('')
+    const [displayedTodosType, setDisplayedTodosType] = React.useState('all')
+
+
+
+    function changeDisplayedType(e) {
+        setDisplayedTodosType(e.target.value)
+    }
 
     function handleTodoAdd() {
         const newTodo = {
@@ -64,8 +71,23 @@ export default function TodoList() {
         setTodos(newTodos)
     }
 
+    const completedTodos = todos.filter((t) => {
+        return t.isCompleted
+    })
 
-    const todosJsx = todos.map((t) => {
+    const NonCompletedTodos = todos.filter((t) => {
+        return !t.isCompleted
+    })
+
+    let todosToShow = todos
+    if (displayedTodosType === 'todo') {
+        todosToShow = NonCompletedTodos
+    }
+    if (displayedTodosType === 'done') {
+        todosToShow = completedTodos
+    }
+
+    const todosJsx = todosToShow.map((t) => {
         return (
             <Todo key={t.id} id={t.id} title={t.title} description={t.description} isCompleted={t.isCompleted} deleteFunction={handleDelete} completeFunction={handleComplete} editFunction={handleEdit} />
         )
@@ -81,19 +103,21 @@ export default function TodoList() {
                     <Divider />
                     <ToggleButtonGroup
                         exclusive
+                        value={displayedTodosType}
                         aria-label="text alignment"
+                        onChange={changeDisplayedType}
                         style={{
                             marginTop: "20px",
                             marginBottom: "20px"
                         }} >
                         {/* ========== START FILTER ==========*/}
-                        <ToggleButton value="left">
+                        <ToggleButton value="todo">
                             To Do
                         </ToggleButton>
-                        <ToggleButton value="center">
+                        <ToggleButton value="done">
                             Done
                         </ToggleButton>
-                        <ToggleButton value="right">
+                        <ToggleButton value="all">
                             All
                         </ToggleButton>
                         {/* ========== END FILTER ==========*/}
