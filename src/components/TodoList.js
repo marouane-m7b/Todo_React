@@ -22,7 +22,7 @@ export default function TodoList() {
         localStorage.setItem('todos', JSON.stringify(todos));
     }, [todos]);
 
-    const [ todoInput, setTodoInput] = useState('')
+    const [todoInput, setTodoInput] = useState('')
     const [displayedTodosType, setDisplayedTodosType] = useState('all')
 
 
